@@ -18,5 +18,80 @@ public class WifiHOTSPOTManager {
         wifiApManager = new WifiApManager(mContext);
     }
 
+    public int EstablishConnection()
+    {
+        if(isWifiConnected())
+            return 1;
+
+        if(isHubAvailable())
+        {
+            connectToHub();
+            return 1;
+        }
+
+        if(isHotspotActive())
+        {
+            if(isHotSpotHasClients())
+                return 1;
+        }
+
+        createHotSpot();
+
+        WaitForUsersToConnect("10 seconds");
+
+        return EstablishConnection();
+
+    }
+
+    public boolean isHotspotActive()
+    {
+
+        return false;
+    }
+    
+
+    public boolean isWifiConnected()
+    {
+
+        return false;
+    }
+    
+
+    public boolean isHubAvailable()
+    {
+
+        return false;
+    }
+    
+
+    public boolean isHotSpotHasClients()
+    {
+
+        return false;
+    }
+    
+
+    public boolean connectToHub()
+    {
+
+        return false;
+    }
+    
+
+    public boolean createHotSpot()
+    {
+
+        return false;
+    }
+
+    public boolean WaitForUsersToConnect(String par)
+    {
+        
+        return false;
+    }
+
+
+
+
 
 }
