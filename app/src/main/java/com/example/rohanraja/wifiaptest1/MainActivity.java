@@ -34,31 +34,37 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         textView1 = (TextView) findViewById(R.id.textView1);
-        wifiApManager = new WifiApManager(this);
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        int flag = 0;
-        wifiManager.startScan();
-        List<android.net.wifi.ScanResult> listIP = wifiManager.getScanResults();
-        for(android.net.wifi.ScanResult i : listIP){
-            if(i.SSID==SSID_HOTSPOT){
-                flag=1;
-
-            }
-        }
-        if(flag==0){
-            WifiConfiguration wf = new WifiConfiguration();
-            wf.SSID = SSID_HOTSPOT;
-            wifiApManager.setWifiApEnabled(wf, true);
-        }
-        else{
-            WifiConfiguration conf = new WifiConfiguration();
-            conf.SSID = "\""+SSID_HOTSPOT+"\"";
-            conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            int netid = wifiManager.addNetwork(conf);
-            wifiManager.disconnect();
-            wifiManager.enableNetwork(netid,true);
-            wifiManager.reconnect();
-        }
+        Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                WifiHOTSPOTManager wifiHOTSPOTManager = new WifiHOTSPOTManager(getApplicationContext());            }
+        });
+        th.start();
+//        wifiApManager = new WifiApManager(this);
+//        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+//        int flag = 0;
+//        wifiManager.startScan();
+//        List<android.net.wifi.ScanResult> listIP = wifiManager.getScanResults();
+//        for(android.net.wifi.ScanResult i : listIP){
+//            if(i.SSID==SSID_HOTSPOT){
+//                flag=1;
+//
+//            }
+//        }
+//        if(flag==0){
+//            WifiConfiguration wf = new WifiConfiguration();
+//            wf.SSID = SSID_HOTSPOT;
+//            wifiApManager.setWifiApEnabled(wf, true);
+//        }
+//        else{
+//            WifiConfiguration conf = new WifiConfiguration();
+//            conf.SSID = "\""+SSID_HOTSPOT+"\"";
+//            conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+//            int netid = wifiManager.addNetwork(conf);
+//            wifiManager.disconnect();
+//            wifiManager.enableNetwork(netid,true);
+//            wifiManager.reconnect();
+//        }
 
     }
 
